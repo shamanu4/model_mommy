@@ -20,6 +20,10 @@ from django.db.models import (
     BooleanField, DecimalField, FloatField,
     FileField, ImageField, Field, IPAddressField,
     ForeignKey, ManyToManyField, OneToOneField)
+try:
+    from mptt.fields import TreeForeignKey
+except ImportError:
+    TreeForeignKey = ForeignKey
 from django.db.models.fields.related import ForeignRelatedObjectsDescriptor
 try:
     from django.db.models import BigIntegerField
@@ -133,6 +137,8 @@ default_mapping = {
 
     ForeignKey: make,
     OneToOneField: make,
+    TreeForeignKey: make,
+
     ManyToManyField: __m2m_generator,
 
     DateField: generators.gen_date,
